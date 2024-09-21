@@ -27,9 +27,9 @@
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+            max-width: 1200px; /* Set a max width for larger screens */
+            margin: auto;      /* Center the container */
+            padding: 0 20px;   /* Add padding to avoid content touching edges */
         }
 
         header {
@@ -46,6 +46,7 @@
             list-style: none;
             display: flex;
             justify-content: center;
+            flex-wrap: wrap; /* Allow the nav items to wrap on smaller screens */
         }
 
         nav ul li {
@@ -83,6 +84,7 @@
             height: 100%;
             object-fit: cover;
             z-index: -1;
+            pointer-events: none; /* Disable pointer events */
         }
 
         .hero-content {
@@ -201,23 +203,34 @@
         }
 
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 3em;
+            header {
+                position: relative;
             }
-
-            .hero p {
-                font-size: 1.2em;
-            }
-
             nav ul {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            nav ul li {
-                margin: 10px 0;
+                flex-direction: column; /* Stack menu items vertically on smaller screens */
+                align-items: center; /* Center align menu items */
+                padding: 10px; /* Add padding for better spacing */
             }
         }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.5em;
+            }
+        
+            .hero p {
+                font-size: 1em;
+            }
+        
+            .cta-button {
+                padding: 10px 20px; /* Adjust padding */
+            }
+        
+            .card {
+                padding: 20px; /* Less padding for smaller screens */
+            }
+        }
+        
     </style>
 </head>
 <body>
