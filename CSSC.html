@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colgate University Ski and Snowboard Club</title>
+    <style>
+        :root {
+            --maroon: #821019;
+            --white: #ffffff;
+            --light-gray: #f4f4f4;
+            --dark-gray: #333333;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background-color: var(--white);
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #821019, #9c1a26);
+            color: var(--white);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--light-gray);
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            background: none;
+            overflow: hidden;
+        }
+
+        #background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .hero p {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out forwards;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--maroon);
+            color: var(--white);
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .cta-button:hover {
+            background-color: #9c1a26;
+        }
+
+        main {
+            padding: 80px 0;
+        }
+
+        section {
+            margin-bottom: 80px;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: var(--maroon);
+            text-align: center;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background-color: var(--light-gray);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: scale(1.05) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .trail-map h4, .mountain-cam h4 {
+            color: var(--maroon);
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .trail-map-img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .cam-video {
+            width: 100%;
+            height: 300px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 10px;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #821019, #9c1a26);
+            color: var(--white);
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3em;
+            }
+
+            .hero p {
+                font-size: 1.2em;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#trips">Trips</a></li>
+                <li><a href="#destinations">Destinations</a></li>
+                <li><a href="#gear">Gear Tips</a></li>
+                <li><a href="#ski-vs-board">Ski vs Snowboard</a></li>
+                <li><a href="#join">Join Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <video autoplay muted loop id="background-video">
+            <source src="C:\Users\Harun\Downloads\CSSC WEBSITE\skivid.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-content">
+            <h1>Colgate University<br>Ski and Snowboard Club</h1>
+            <p>Embrace the thrill of winter sports with us!</p>
+            <a href="#join" class="cta-button">Join the Adventure</a>
+        </div>
+    </div>
+
+    <main class="container">
+        <section id="destinations">
+            <h2>Where We Go</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Greek Peak Mountain Resort</h3>
+                    <div class="trail-map">
+                        <h4>Trail Map</h4>
+                        <img src="path_to_greek_peak_trail_map.jpg" alt="Greek Peak Trail Map" class="trail-map-img">
+                    </div>
+                    <div class="mountain-cam">
+                        <h4>Mountain Cam</h4>
+                        <iframe src="https://youtu.be/JWugDNXhOoA" frameborder="0" class="cam-video" allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Labrador Mountain</h3>
+                    <div class="trail-map">
+                        <h4>Trail Map</h4>
+                        <img src="path_to_labrador_trail_map.jpg" alt="Labrador Mountain Trail Map" class="trail-map-img">
+                    </div>
+                    <div class="mountain-cam">
+                        <h4>Mountain Cam</h4>
+                        <iframe src="https://www.labradormtn.com/mountain-cam" frameborder="0" class="cam-video" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Colgate University Ski and Snowboard Club. All rights reserved.</p>
+    </footer>
+</body>
+</html>
