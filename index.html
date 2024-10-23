@@ -105,7 +105,20 @@
       .hero-content {
         position: relative;
         z-index: 1;
-        animation: fadeInUp 1.5s ease-out forwards;
+        opacity: 0; /* Start hidden */
+        animation: fadeInText 1.5s ease-out forwards;
+        animation-delay: .75s; /* Delay to allow video to load first */
+      }
+
+      @keyframes fadeInText {
+        from {
+          opacity: 0;
+          transform: translateY(-20px); /* Start slightly above */
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0); /* End at original position */
+        }
       }
 
       .hero h1 {
@@ -153,6 +166,7 @@
         padding: 40px;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border: 2px solid var(--light-gray); /* Add border */
       }
 
       h2 {
@@ -726,6 +740,47 @@
           width: 100%;
         }
       }
+
+      @media (max-width: 768px) {
+        .learn-more-btn,
+        .back-btn {
+          display: none;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .comparison-card .card-front,
+        .comparison-card .card-back {
+          transform: none !important;
+        }
+        .comparison-card .card-back {
+          display: none;
+        }
+      }
+
+      .back-btn {
+        background: var(--maroon);
+        color: var(--white);
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: "Open Sans", sans-serif;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+        margin-top: auto;
+        display: none; /* Hide by default */
+      }
+
+      .back-btn:hover {
+        background: var(--dark-maroon);
+      }
+
+      @media (min-width: 769px) {
+        .back-btn {
+          display: block; /* Show on desktop */
+        }
+      }
     </style>
   </head>
   <body>
@@ -1132,7 +1187,7 @@
               } else {
                 suggestionsContent.appendChild(createSuggestionItem('🧥', 'Light Jacket'));
                 suggestionsContent.appendChild(createSuggestionItem('🧣', 'Sweater'));
-                suggestionsContent.appendChild(createSuggestionItem('🕶️', 'Sunglasses'));
+                suggestionsContent.appendChild(createSuggestionItem('🕶', 'Sunglasses'));
               }
             }
           });
@@ -1169,7 +1224,7 @@
                 <span>Learning Curve</span>
                 <div class="meter"><div style="width: 60%"></div></div>
               </div>
-              <button class="flip-btn">Back</button>
+              <button class="back-btn">Back</button> <!-- Add Back button -->
             </div>
           </div>
           <div class="comparison-card snowboarding">
@@ -1193,7 +1248,7 @@
                 <span>Learning Curve</span>
                 <div class="meter"><div style="width: 80%"></div></div>
               </div>
-              <button class="flip-btn">Back</button>
+              <button class="back-btn">Back</button> <!-- Add Back button -->
             </div>
           </div>
         </div>
@@ -1274,13 +1329,70 @@
       document.addEventListener('DOMContentLoaded', function() {
         const cards = document.querySelectorAll('.comparison-card');
         
-        cards.forEach(card => {
-          const flipBtns = card.querySelectorAll('.flip-btn');
-          flipBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-              card.classList.toggle('flipped');
+        if (window.innerWidth > 768) { // Only add flip functionality for desktop
+          cards.forEach(card => {
+            const flipBtns = card.querySelectorAll('.flip-btn');
+            flipBtns.forEach(btn => {
+              btn.addEventListener('click', () => {
+                card.classList.toggle('flipped');
+              });
             });
           });
+        }
+      });
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const cards = document.querySelectorAll('.card');
+        
+        cards.forEach(card => {
+          const learnMoreBtn = card.querySelector('.learn-more-btn');
+          const backBtn = card.querySelector('.back-btn');
+          
+          if (window.innerWidth > 768) {
+            learnMoreBtn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              card.classList.add('show-guide');
+            });
+            
+            backBtn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              card.classList.remove('show-guide');
+            });
+          }
+        });
+      });
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const cards = document.querySelectorAll('.comparison-card');
+
+        cards.forEach(card => {
+          const learnMoreBtn = card.querySelector('.flip-btn');
+          const backBtn = card.querySelector('.back-btn');
+          const cardBack = card.querySelector('.card-back');
+
+          learnMoreBtn.addEventListener('click', () => {
+            if (window.innerWidth > 768) { // Only apply on desktop
+              card.classList.add('flipped');
+            } else {
+              cardBack.style.display = cardBack.style.display === 'block' ? 'none' : 'block';
+            }
+          });
+
+          backBtn.addEventListener('click', () => {
+            if (window.innerWidth > 768) { // Only apply on desktop
+              card.classList.remove('flipped');
+            }
+          });
+        });
+      });
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const video = document.getElementById('background-video');
+        const heroContent = document.querySelector('.hero-content');
+
+        video.addEventListener('loadeddata', function() {
+          // Start the text animation after the video is ready
+          heroContent.style.animationPlayState = 'running';
         });
       });
     </script>
